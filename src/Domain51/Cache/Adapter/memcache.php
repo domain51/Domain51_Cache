@@ -1,11 +1,10 @@
 <?php
 
-require_once 'Domain51/Cache/Adapter.php';
+require_once 'Domain51/Cache/Adapter/Abstract.php';
 require_once 'Domain51/Cache/Adapter/memcache/Exception.php';
 
-class Domain51_Cache_Adapter_memcache implements Domain51_Cache_Adapter
+class Domain51_Cache_Adapter_memcache extends Domain51_Cache_Adapter_Abstract
 {
-    private $_data = array();
     private $_memcache = null;
     private $_id = 'cache';
     
@@ -33,28 +32,6 @@ class Domain51_Cache_Adapter_memcache implements Domain51_Cache_Adapter
         if (!empty($options['id'])) {
             $this->_id = $options['id'];
         }
-    }
-    
-    public function __destruct()
-    {
-        $this->_memcache->close();
-    }
-    
-    public function __get($key) { }
-    
-    public function __set($key, $value)
-    {
-        $this->_data[$key] = $value;
-    }
-    
-    public function __isset($key)
-    {
-        return isset($this->_data[$key]);
-    }
-    
-    public function __unset($key)
-    {
-        unset($this->_data[$key]);
     }
     
     public function save()

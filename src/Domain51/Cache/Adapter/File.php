@@ -1,14 +1,12 @@
 <?php
 
-require_once 'Domain51/Cache/Adapter.php';
+require_once 'Domain51/Cache/Adapter/Abstract.php';
 require_once 'Domain51/Cache/Exception.php';
 
-class Domain51_Cache_Adapter_File implements Domain51_Cache_Adapter
+class Domain51_Cache_Adapter_File extends Domain51_Cache_Adapter_Abstract
 {
     private $_base_dir = null;
     private $_id = 'cache-file';
-    private $_data = array();
-    
     private $_cache_file = '';
     private $_expire = 3600;
     
@@ -45,26 +43,6 @@ class Domain51_Cache_Adapter_File implements Domain51_Cache_Adapter
         if (file_exists($this->_cache_file) && filemtime($this->_cache_file) > time() - $this->_expire) {
             $this->_data = unserialize(file_get_contents($this->_cache_file));
         }
-    }
-    
-    public function __get($key)
-    {
-        return $this->_data[$key];
-    }
-    
-    public function __set($key, $value)
-    {
-        $this->_data[$key] = $value;
-    }
-    
-    public function __isset($key)
-    {
-        return isset($this->_data[$key]);
-    }
-    
-    public function __unset($key)
-    {
-        unset($this->_data[$key]);
     }
     
     public function save()
