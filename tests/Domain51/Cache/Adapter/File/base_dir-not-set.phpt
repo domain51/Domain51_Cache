@@ -13,7 +13,7 @@ require_once 'Domain51/Cache/Adapter/File.php';
 try {
     new Domain51_Cache_Adapter_File();
     trigger_error('exception not caught');
-} catch (Domain51_Cache_Exception $e) {
+} catch (Domain51_Cache_Adapter_File_Exception $e) {
     echo $e->getMessage() . "\n";
 }
 

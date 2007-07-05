@@ -1,7 +1,7 @@
 <?php
 
 require_once 'Domain51/Cache/Adapter/Abstract.php';
-require_once 'Domain51/Cache/Exception.php';
+require_once 'Domain51/Cache/Adapter/File/Exception.php';
 
 class Domain51_Cache_Adapter_File extends Domain51_Cache_Adapter_Abstract
 {
@@ -13,19 +13,19 @@ class Domain51_Cache_Adapter_File extends Domain51_Cache_Adapter_Abstract
     public function __construct(array $options = array())
     {
         if (!isset($options['base_dir'])) {
-            throw new Domain51_Cache_Exception(
+            throw new Domain51_Cache_Adapter_File_Exception(
                 'Domain51_Cache_Adapter_File reqiures \'base_dir\' option'
             );
         }
         
         if (!is_dir($options['base_dir'])) {
-            throw new Domain51_Cache_Exception(
+            throw new Domain51_Cache_Adapter_File_Exception(
                 'Domain51_Cache_Adapter_File requires a directory for \'base_dir\''
             );
         }
         
         if (!is_writable($options['base_dir'])) {
-            throw new Domain51_Cache_Exception(
+            throw new Domain51_Cache_Adapter_File_Exception(
                 'Domain51_Cache_Adapter_File requires a writable directory for \'base_dir\''
             );
         }

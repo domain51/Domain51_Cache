@@ -17,7 +17,7 @@ try {
         )
     );
     trigger_error('exception not caught');
-} catch (Domain51_Cache_Exception $e) {
+} catch (Domain51_Cache_Adapter_File_Exception $e) {
     echo $e->getMessage() . "\n";
 }
 
