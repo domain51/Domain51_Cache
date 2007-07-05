@@ -39,14 +39,12 @@ class Domain51_Cache
             }
         }
         
-        $adapter = new $adapter_name();
+        $adapter = new $adapter_name($options);
         if (!$adapter instanceof Domain51_Cache_Adapter) {
             throw new Domain51_Cache_Exception(
                 "Requested adapter [{$type}] does not implement Domain51_Cache_Adapter"
             );
         }
-        
-        $adapter->init($options);
         return $adapter;
     }
 }

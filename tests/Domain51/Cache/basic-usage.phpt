@@ -14,6 +14,11 @@ require_once 'Domain51/Cache.php';
 
 class Domain51_Cache_Adapter_EchoForTesting implements Domain51_Cache_Adapter
 {
+    public function __construct(array $options = array())
+    {
+        echo "EchoForTesting :: __construct() invoked with " . var_export($options, true) . "\n";
+    }
+    
     public function __get($key)
     {
         echo "EchoForTesting :: getting {$key}\n";
@@ -28,29 +33,23 @@ class Domain51_Cache_Adapter_EchoForTesting implements Domain51_Cache_Adapter
     {
         echo "EchoForTesting :: save() invoked\n";
     }
-    
-    public function init(array $options)
-    {
-        echo "EchoForTesting :: init() invoked with " . var_export($options, true) . "\n";
-    }
 }
 
 // sanity check
 ob_start();
-$echo = new Domain51_Cache_Adapter_EchoForTesting();
+$echo = new Domain51_Cache_Adapter_EchoForTesting(array());
 $echo->test = 'hello world';
 $str = $echo->test;
 $echo->save();
-$echo->init(array());
-$echo->init(array('foo' => 'bar'));
+new Domain51_Cache_Adapter_EchoForTesting(array('foo' => 'bar'));
 $buffer = ob_get_clean();
 
-$expected = "EchoForTesting :: setting test == hello world
+$expected = "EchoForTesting :: __construct() invoked with array (
+)
+EchoForTesting :: setting test == hello world
 EchoForTesting :: getting test
 EchoForTesting :: save() invoked
-EchoForTesting :: init() invoked with array (
-)
-EchoForTesting :: init() invoked with array (
+EchoForTesting :: __construct() invoked with array (
   'foo' => 'bar',
 )
 ";
@@ -66,7 +65,7 @@ $cache->save();
 ?>
 ===DONE===
 --EXPECT--
-EchoForTesting :: init() invoked with array (
+EchoForTesting :: __construct() invoked with array (
   'foo' => 'bar',
 )
 EchoForTesting :: setting foo == bar
