@@ -12,6 +12,11 @@ class Domain51_Cache_Adapter_memcache implements Domain51_Cache_Adapter
     
     public function __construct(array $options = array())
     {
+        if (!extension_loaded('memcache')) {
+            throw new Domain51_Cache_Adapter_memcache_Exception(
+                'memcache extension not loaded'
+            );
+        }
         if (empty($options['hostname'])) {
             throw new Domain51_Cache_Adapter_memcache_Exception(
                 "hostname option must be present"
