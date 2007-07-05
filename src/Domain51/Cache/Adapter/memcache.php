@@ -22,9 +22,20 @@ class Domain51_Cache_Adapter_memcache extends Domain51_Cache_Adapter_Abstract
                 "hostname option must be present"
             );
         }
+        if (!isset($options['port'])) {
+            $options['port'] = 11211;
+        }
         
         $this->_memcache = new Memcache();
-        $this->_memcache->connect($options['hostname']);
+        $connected = @$this->_memcache->connect(
+            $options['hostname'],
+            $options['port']
+        );
+        if (!$connected) {
+            throw new Domain51_Cache_Adapter_memcache_Exception(
+                "unable to connect to memcache server at {$options['hostname']}:{$options['port']}"
+            );
+        }
         $cache_data = $this->_memcache->get($this->_id);
         if ($cache_data !== false) {
             $this->_data = $cache_data;
