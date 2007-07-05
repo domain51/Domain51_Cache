@@ -29,6 +29,15 @@ class Domain51_Cache_Adapter_EchoForTesting implements Domain51_Cache_Adapter
         echo "EchoForTesting :: setting {$key} == {$value}\n";
     }
     
+    public function __isset($key)
+    {
+        printf("EchoForTesting :: __isset('%s') invoked\n", $key);
+    }
+    public function __unset($key)
+    {
+        printf("EchoForTesting :: __unset('%s') invoked\n", $key);
+    }
+    
     public function save()
     {
         echo "EchoForTesting :: save() invoked\n";
@@ -41,6 +50,8 @@ $echo = new Domain51_Cache_Adapter_EchoForTesting(array());
 $echo->test = 'hello world';
 $str = $echo->test;
 $echo->save();
+isset($echo->test);
+unset($echo->test);
 new Domain51_Cache_Adapter_EchoForTesting(array('foo' => 'bar'));
 $buffer = ob_get_clean();
 
@@ -49,6 +60,8 @@ $expected = "EchoForTesting :: __construct() invoked with array (
 EchoForTesting :: setting test == hello world
 EchoForTesting :: getting test
 EchoForTesting :: save() invoked
+EchoForTesting :: __isset('test') invoked
+EchoForTesting :: __unset('test') invoked
 EchoForTesting :: __construct() invoked with array (
   'foo' => 'bar',
 )
@@ -61,6 +74,8 @@ $cache = new Domain51_Cache('EchoForTesting', array('foo' => 'bar'));
 $cache->foo = 'bar';
 $bar = $cache->foo;
 $cache->save();
+isset($cache->foo);
+unset($cache->foo);
 
 ?>
 ===DONE===

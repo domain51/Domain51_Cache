@@ -62,6 +62,8 @@ class Domain51_Cache_Adapter_File implements Domain51_Cache_Adapter
         return isset($this->_data[$key]);
     }
     
+    public function __unset($key) { }
+    
     public function save()
     {
         $fp = fopen($this->_cache_file, 'w');
