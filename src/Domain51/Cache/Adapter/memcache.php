@@ -7,6 +7,7 @@ class Domain51_Cache_Adapter_memcache extends Domain51_Cache_Adapter_Abstract
 {
     private $_memcache = null;
     private $_id = 'cache';
+    private $_expire = 3600;
     
     
     public function __construct(array $options = array())
@@ -32,10 +33,14 @@ class Domain51_Cache_Adapter_memcache extends Domain51_Cache_Adapter_Abstract
         if (!empty($options['id'])) {
             $this->_id = $options['id'];
         }
+        
+        if (isset($options['expire'])) {
+            $this->_expire = (int)$options['expire'];
+        }
     }
     
     public function save()
     {
-        $this->_memcache->set($this->_id, $this->_data, 0, 3600);
+        $this->_memcache->set($this->_id, $this->_data, 0, $this->_expire);
     }
 }
