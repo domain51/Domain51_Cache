@@ -32,6 +32,6 @@ try {
 ?>
 ===DONE===
 --EXPECT--
-Requested adapter [DoesNotImplement] does not implement Domain51_Cache_Adapter
-Requested adapter [UnknownAndUnknowable] does not exist
+Requested adapter [Doesnotimplement] does not implement Domain51_Cache_Adapter
+Requested adapter [Unknownandunknowable] does not exist
 ===DONE===

@@ -3,7 +3,7 @@
 require_once 'Domain51/Cache/Adapter/Abstract.php';
 require_once 'Domain51/Cache/Adapter/memcache/Exception.php';
 
-class Domain51_Cache_Adapter_memcache extends Domain51_Cache_Adapter_Abstract
+class Domain51_Cache_Adapter_Memcache extends Domain51_Cache_Adapter_Abstract
 {
     private $_memcache = null;
     private $_id = 'cache';

@@ -29,6 +29,7 @@ class Domain51_Cache
     
     public function factory($type, array $options = array())
     {
+        $type = ucfirst(strtolower($type));
         $adapter_name = 'Domain51_Cache_Adapter_' . $type;
         if (!class_exists($adapter_name)) {
             @include_once str_replace('_', '/', $adapter_name) . '.php';
