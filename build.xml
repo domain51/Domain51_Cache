@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Domain51_Cache" basedir="." default="base.make">
+<project name="Domain51_Cache" basedir="." default="help">
     <includepath classpath="../../Phing_d51PearPkg2Task/trunk/src" />
     <taskdef classname="phing.tasks.ext.d51PearPkg2Task" name="d51pearpkg2" />
     
     <property name="version" value="0.1" />
     
+    <target name="help">
+        <echo>
+Using phing, this script helps you build Domain51_Cache and its various adapters.
+The following targets are available:
+    all         Builds Domain51_Cache and all adapters
+    base        Builds just the base Domain51_Cache package
+    file        Builds the Domain51_Cache_File package
+    memcache    Builds the Domain51_Cache_Memcache package
+        </echo>
+    </target>
+
     <target name="export">
         <echo msg="Exporting SVN files" />
         <delete dir="./build/export" />
@@ -23,7 +34,7 @@
             </fileset>
         </copy>
     </target>
-    <target name="base.build" depends="base.export">
+    <target name="base.package" depends="base.export">
         <d51pearpkg2 dir="./build/package" baseinstalldir="/">
             <name>Domain51_Cache</name>
             <summary>Provides a lightweight, generic caching object</summary>
@@ -46,19 +57,19 @@
             
             <dependencies>
                 <group name="file" hint="cache to file">
-                    <package name="Domain51_Cache_Adapter_File"
+                    <package name="Domain51_Cache_File"
                              channel="pear.domain51.com" />
                 </group>
                 
                 <group name="memcache" hint="cache to memcached server">
-                    <package name="Domain51_Cache_Adapter_memcache"
+                    <package name="Domain51_Cache_Memcache"
                              channel="pear.domain51.com" />
                 </group>
             </dependencies>
         </d51pearpkg2>
     </target>
     
-    <target name="base.make" depends="base.build">
+    <target name="base" depends="base.package">
         <delete file="Domain51_Cache-${version}.tgz" />
         <echo msg="Creating PEAR archive file for Domain51_Cache" />
         <mkdir dir="./build/package/Domain51_Cache-${version}" />
@@ -83,9 +94,10 @@
             </fileset>
         </copy>
     </target>
-    <target name="File.build" depends="File.export">
+    
+    <target name="file.package" depends="File.export">
         <d51pearpkg2 dir="./build/package" baseinstalldir="/">
-            <name>Domain51_Cache_Adapter_File</name>
+            <name>Domain51_Cache_File</name>
             <summary>File adapter for Domain51_Cache</summary>
             <channel>pear.domain51.com</channel>
             <description>
@@ -109,18 +121,18 @@
         </d51pearpkg2>
     </target>
     
-    <target name="File.make" depends="File.build">
-        <delete file="Domain51_Cache_Adapter_File-${version}.tgz" />
+    <target name="file" depends="file.package">
+        <delete file="Domain51_Cache_File-${version}.tgz" />
         <echo msg="Creating PEAR archive file for Domain51_Cache" />
-        <mkdir dir="./build/package/Domain51_Cache_Adapter_File-${version}" />
-        <mkdir dir="./build/package/Domain51_Cache_Adapter_File-${version}/Domain51" />
-        <copy todir="./build/package/Domain51_Cache_Adapter_File-${version}/Domain51">
+        <mkdir dir="./build/package/Domain51_Cache_File-${version}" />
+        <mkdir dir="./build/package/Domain51_Cache_File-${version}/Domain51" />
+        <copy todir="./build/package/Domain51_Cache_File-${version}/Domain51">
             <fileset dir="./build/package/Domain51">
                 
             </fileset>
         </copy>
         <delete dir="./build/package/Domain51" />
-        <tar compression="gzip" destfile="Domain51_Cache_Adapter_File-${version}.tgz" basedir="./build/package" />
+        <tar compression="gzip" destfile="Domain51_Cache_File-${version}.tgz" basedir="./build/package" />
     </target>
 
 <!--
@@ -134,9 +146,9 @@
             </fileset>
         </copy>
     </target>
-    <target name="memcache.build" depends="memcache.export">
+    <target name="memcache.package" depends="memcache.export">
         <d51pearpkg2 dir="./build/package" baseinstalldir="/">
-            <name>Domain51_Cache_Adapter_memcache</name>
+            <name>Domain51_Cache_Memcache</name>
             <summary>memcache adapter for Domain51_Cache</summary>
             <channel>pear.domain51.com</channel>
             <description>
@@ -161,24 +173,24 @@
         </d51pearpkg2>
     </target>
     
-    <target name="memcache.make" depends="memcache.build">
-        <delete file="Domain51_Cache_Adapter_memcache-${version}.tgz" />
+    <target name="memcache" depends="memcache.package">
+        <delete file="Domain51_Cache_Memcache-${version}.tgz" />
         <echo msg="Creating PEAR archive file for Domain51_Cache" />
-        <mkdir dir="./build/package/Domain51_Cache_Adapter_memcache-${version}" />
-        <mkdir dir="./build/package/Domain51_Cache_Adapter_memcache-${version}/Domain51" />
-        <copy todir="./build/package/Domain51_Cache_Adapter_memcache-${version}/Domain51">
+        <mkdir dir="./build/package/Domain51_Cache_Memcache-${version}" />
+        <mkdir dir="./build/package/Domain51_Cache_Memcache-${version}/Domain51" />
+        <copy todir="./build/package/Domain51_Cache_Memcache-${version}/Domain51">
             <fileset dir="./build/package/Domain51">
                 
             </fileset>
         </copy>
         <delete dir="./build/package/Domain51" />
-        <tar compression="gzip" destfile="Domain51_Cache_Adapter_memcache-${version}.tgz" basedir="./build/package" />
+        <tar compression="gzip" destfile="Domain51_Cache_Memcache-${version}.tgz" basedir="./build/package" />
     </target>
     
-    <target name="make">
-        <phingcall target="base.make" />
-        <phingcall target="File.make" />
-        <phingcall target="memcache.make" />
+    <target name="all">
+        <phingcall target="base" />
+        <phingcall target="file" />
+        <phingcall target="memcache" />
     </target>
     
     <target name="docs" depends="export">
