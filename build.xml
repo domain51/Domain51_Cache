@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Domain51_Cache" basedir="." default="base.make">
+    <includepath classpath="../../Phing_d51PearPkg2Task/trunk/src" />
+    <taskdef classname="phing.tasks.ext.d51PearPkg2Task" name="d51pearpkg2" />
+    
+    <property name="version" value="0.1" />
+    
+    <target name="export">
+        <echo msg="Exporting SVN files" />
+        <delete dir="./build" />
+        <mkdir dir="./build" />
+        <mkdir dir="./build/package" />
+        <exec command="svn export ./src ./build/export" />
+    </target>
+    
+    <target name="base.export" depends="export">
+        <copy todir="./build/package">
+            <fileset dir="./build/export">
+                <include name="Domain51/Cache.php" />
+                <include name="Domain51/Cache/Adapter.php" />
+                <include name="Domain51/Cache/Adapter/Abstract.php" />
+                <include name="Domain51/Cache/Exception.php" />
+            </fileset>
+        </copy>
+    </target>
+    <target name="base.build" depends="base.export">
+        <d51pearpkg2 dir="./build/package" baseinstalldir="/">
+            <name>Domain51_Cache</name>
+            <summary>Provides a lightweight, generic caching object</summary>
+            <channel>pear.domain51.com</channel>
+            <description>
+                This package provides a lightweight caching interface with an extensible Strategy pattern which allows for the various adapters to implement different back-ends.
+
+                This package does not provide any specific adapters
+            </description>
+            
+            <lead user="tswicegood" name="Travis Swicegood" email="developer@domain51.com" />
+            <license>LGPL</license>
+            
+            <version release="${version}" api="0.0.1" />
+            <stability release="alpha" api="alpha" />
+            
+            <changelog version="0.1" date="2007-07-06" license="LGPL">
+                This is the initial release of this pacakge
+            </changelog>
+            
+            <dependencies>
+                <group name="file" hint="cache to file">
+                    <package name="Domain51_Cache_Adapter_File"
+                             channel="pear.domain51.com" />
+                </group>
+                
+                <group name="memcache" hint="cache to memcached server">
+                    <package name="Domain51_Cache_Adapter_memcache"
+                             channel="pear.domain51.com" />
+                </group>
+            </dependencies>
+        </d51pearpkg2>
+    </target>
+    
+    <target name="base.make" depends="base.build">
+        <delete file="Domain51_Cache-${version}.tgz" />
+        <echo msg="Creating PEAR archive file for Domain51_Cache" />
+        <mkdir dir="./build/package/Domain51_Cache-${version}" />
+        <mkdir dir="./build/package/Domain51_Cache-${version}/Domain51" />
+        <copy todir="./build/package/Domain51_Cache-${version}/Domain51">
+            <fileset dir="./build/package/Domain51">
+                
+            </fileset>
+        </copy>
+        <delete dir="./build/package/Domain51" />
+        <tar compression="gzip" destfile="Domain51_Cache-${version}.tgz" basedir="./build/package" />
+    </target>
+    
+<!--
+    Build File subpackage
+-->
+    <target name="File.export" depends="export">
+        <copy todir="./build/package">
+            <fileset dir="./build/export">
+                <include name="Domain51/Cache/Adapter/File.php" />
+                <include name="Domain51/Cache/Adapter/File/Exception.php" />
+            </fileset>
+        </copy>
+    </target>
+    <target name="File.build" depends="File.export">
+        <d51pearpkg2 dir="./build/package" baseinstalldir="/">
+            <name>Domain51_Cache_Adapter_File</name>
+            <summary>File adapter for Domain51_Cache</summary>
+            <channel>pear.domain51.com</channel>
+            <description>
+                This package implements a simple file caching adapter for Domain51_Cache.
+            </description>
+            
+            <lead user="tswicegood" name="Travis Swicegood" email="developer@domain51.com" />
+            <license>LGPL</license>
+            
+            <version release="${version}" api="0.0.1" />
+            <stability release="alpha" api="alpha" />
+            <notes>
+                This is the initial release of this pacakge
+            </notes>
+            
+            <dependencies>
+                <package name="Domain51_Cache"
+                         channel="pear.domain51.com"
+                         type="required" />
+            </dependencies>
+        </d51pearpkg2>
+    </target>
+    
+    <target name="File.make" depends="File.build">
+        <delete file="Domain51_Cache_Adapter_File-${version}.tgz" />
+        <echo msg="Creating PEAR archive file for Domain51_Cache" />
+        <mkdir dir="./build/package/Domain51_Cache_Adapter_File-${version}" />
+        <mkdir dir="./build/package/Domain51_Cache_Adapter_File-${version}/Domain51" />
+        <copy todir="./build/package/Domain51_Cache_Adapter_File-${version}/Domain51">
+            <fileset dir="./build/package/Domain51">
+                
+            </fileset>
+        </copy>
+        <delete dir="./build/package/Domain51" />
+        <tar compression="gzip" destfile="Domain51_Cache_Adapter_File-${version}.tgz" basedir="./build/package" />
+    </target>
+
+<!--
+    Build memcache subpackage
+-->
+    <target name="memcache.export" depends="export">
+        <copy todir="./build/package">
+            <fileset dir="./build/export">
+                <include name="Domain51/Cache/Adapter/memcache.php" />
+                <include name="Domain51/Cache/Adapter/memcache/Exception.php" />
+            </fileset>
+        </copy>
+    </target>
+    <target name="memcache.build" depends="memcache.export">
+        <d51pearpkg2 dir="./build/package" baseinstalldir="/">
+            <name>Domain51_Cache_Adapter_memcache</name>
+            <summary>memcache adapter for Domain51_Cache</summary>
+            <channel>pear.domain51.com</channel>
+            <description>
+                This package implements a simple memcache caching adapter for Domain51_Cache.
+            </description>
+            
+            <lead user="tswicegood" name="Travis Swicegood" email="developer@domain51.com" />
+            <license>LGPL</license>
+            
+            <version release="${version}" api="0.0.1" />
+            <stability release="alpha" api="alpha" />
+            <notes>
+                This is the initial release of this pacakge
+            </notes>
+            
+            <dependencies>
+                <package name="Domain51_Cache"
+                         channel="pear.domain51.com"
+                         type="required" />
+                <extension name="memcache" />
+            </dependencies>
+        </d51pearpkg2>
+    </target>
+    
+    <target name="memcache.make" depends="memcache.build">
+        <delete file="Domain51_Cache_Adapter_memcache-${version}.tgz" />
+        <echo msg="Creating PEAR archive file for Domain51_Cache" />
+        <mkdir dir="./build/package/Domain51_Cache_Adapter_memcache-${version}" />
+        <mkdir dir="./build/package/Domain51_Cache_Adapter_memcache-${version}/Domain51" />
+        <copy todir="./build/package/Domain51_Cache_Adapter_memcache-${version}/Domain51">
+            <fileset dir="./build/package/Domain51">
+                
+            </fileset>
+        </copy>
+        <delete dir="./build/package/Domain51" />
+        <tar compression="gzip" destfile="Domain51_Cache_Adapter_memcache-${version}.tgz" basedir="./build/package" />
+    </target>
+    
+    <target name="make">
+        <phingcall target="base.make" />
+        <phingcall target="File.make" />
+        <phingcall target="memcache.make" />
+    </target>
+    
+    <target name="docs" depends="export">
+        <echo msg="Creating documentation" />
+        <phpdoc title="Domain51_Cache Docs" 
+            destdir="./apidocs"
+            sourcecode="./build"
+            output="HTML:frames:DOM/earthli"
+        >
+            <fileset dir="./build">
+                <include name="**" />
+            </fileset>
+        </phpdoc>
+    </target>
+</project>
