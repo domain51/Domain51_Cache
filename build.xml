@@ -36,12 +36,12 @@ The following targets are available:
     <target name="base.package" depends="base.export">
         <d51pearpkg2 dir="./build/package" baseinstalldir="/">
             <name>Domain51_Cache</name>
-            <summary>Provides a lightweight, generic caching object</summary>
+            <summary>Provides a lightweight, generic caching framework</summary>
             <channel>pear.domain51.com</channel>
             <description>
                 This package provides a lightweight caching interface with an extensible Strategy pattern which allows for the various adapters to implement different back-ends.
 
-                This package does not provide any specific adapters
+                This package does not provide any specific adapters.
             </description>
             
             <lead user="tswicegood" name="Travis Swicegood" email="developer@domain51.com" />
