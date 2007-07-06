@@ -141,8 +141,8 @@ The following targets are available:
     <target name="memcache.export" depends="export">
         <copy todir="./build/package">
             <fileset dir="./build/export">
-                <include name="Domain51/Cache/Adapter/memcache.php" />
-                <include name="Domain51/Cache/Adapter/memcache/Exception.php" />
+                <include name="Domain51/Cache/Adapter/Memcache.php" />
+                <include name="Domain51/Cache/Adapter/Memcache/Exception.php" />
             </fileset>
         </copy>
     </target>
