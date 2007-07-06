@@ -7,8 +7,8 @@
     
     <target name="export">
         <echo msg="Exporting SVN files" />
-        <delete dir="./build" />
-        <mkdir dir="./build" />
+        <delete dir="./build/export" />
+        <delete dir="./build/package" />
         <mkdir dir="./build/package" />
         <exec command="svn export ./src ./build/export" />
     </target>
