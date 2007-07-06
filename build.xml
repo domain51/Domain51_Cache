@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Domain51_Cache" basedir="." default="help">
-    <includepath classpath="../../Phing_d51PearPkg2Task/trunk/src" />
     <taskdef classname="phing.tasks.ext.d51PearPkg2Task" name="d51pearpkg2" />
     
     <property name="version" value="0.1" />
