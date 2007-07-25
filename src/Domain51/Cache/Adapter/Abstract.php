@@ -6,6 +6,8 @@ abstract class Domain51_Cache_Adapter_Abstract implements Domain51_Cache_Adapter
 {
     protected $_data = array();
     
+    abstract public function __construct(array $options = array());
+    
     public function __get($key)
     {
         return $this->_data[$key];
