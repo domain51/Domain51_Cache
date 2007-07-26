@@ -5,15 +5,17 @@
     <property name="base.version" value="0.1" />
     <property name="file.version" value="0.1" />
     <property name="memcache.version" value="0.1" />
+    <property name="package_name" value="Domain51_Cache" />
+
     
     <target name="help">
         <echo>
 Using phing, this script helps you build Domain51_Cache and its various adapters.
 The following targets are available:
-    all         Builds Domain51_Cache and all adapters
-    base        Builds just the base Domain51_Cache package
-    file        Builds the Domain51_Cache_File package
-    memcache    Builds the Domain51_Cache_Memcache package
+    all         Builds ${package_name} and all adapters
+    base        Builds just the base ${package_name} package
+    file        Builds the ${package_name}_File package
+    memcache    Builds the ${package_name}_Memcache package
         </echo>
     </target>
 
@@ -37,7 +39,7 @@ The following targets are available:
     </target>
     <target name="base.package" depends="base.export">
         <d51pearpkg2 dir="./build/package" baseinstalldir="/">
-            <name>Domain51_Cache</name>
+            <name>${package_name}</name>
             <summary>Provides a lightweight, generic caching framework</summary>
             <channel>pear.domain51.com</channel>
             <description>
@@ -58,12 +60,12 @@ The following targets are available:
             
             <dependencies>
                 <group name="file" hint="cache to file">
-                    <package name="Domain51_Cache_File"
+                    <package name="${package_name}_File"
                              channel="pear.domain51.com" />
                 </group>
                 
                 <group name="memcache" hint="cache to memcached server">
-                    <package name="Domain51_Cache_Memcache"
+                    <package name="${package_name}_Memcache"
                              channel="pear.domain51.com" />
                 </group>
             </dependencies>
@@ -71,17 +73,17 @@ The following targets are available:
     </target>
     
     <target name="base" depends="base.package">
-        <delete file="Domain51_Cache-${base.version}.tgz" />
-        <echo msg="Creating PEAR archive file for Domain51_Cache" />
-        <mkdir dir="./build/package/Domain51_Cache-${base.version}" />
-        <mkdir dir="./build/package/Domain51_Cache-${base.version}/Domain51" />
-        <copy todir="./build/package/Domain51_Cache-${base.version}/Domain51">
+        <delete file="${package_name}-${base.version}.tgz" />
+        <echo msg="Creating PEAR archive file for ${package_name}" />
+        <mkdir dir="./build/package/${package_name}-${base.version}" />
+        <mkdir dir="./build/package/${package_name}-${base.version}/Domain51" />
+        <copy todir="./build/package/${package_name}-${base.version}/Domain51">
             <fileset dir="./build/package/Domain51">
                 
             </fileset>
         </copy>
         <delete dir="./build/package/Domain51" />
-        <tar compression="gzip" destfile="Domain51_Cache-${base.version}.tgz" basedir="./build/package" />
+        <tar compression="gzip" destfile="${package_name}-${base.version}.tgz" basedir="./build/package" />
     </target>
     
 <!--
@@ -98,11 +100,11 @@ The following targets are available:
     
     <target name="file.package" depends="File.export">
         <d51pearpkg2 dir="./build/package" baseinstalldir="/">
-            <name>Domain51_Cache_File</name>
-            <summary>File adapter for Domain51_Cache</summary>
+            <name>${package_name}_File</name>
+            <summary>File adapter for ${package_name}</summary>
             <channel>pear.domain51.com</channel>
             <description>
-                This package implements a simple file caching adapter for Domain51_Cache.
+                This package implements a simple file caching adapter for ${package_name}.
             </description>
             
             <lead user="tswicegood" name="Travis Swicegood" email="developer@domain51.com" />
@@ -115,7 +117,7 @@ The following targets are available:
             </notes>
             
             <dependencies>
-                <package name="Domain51_Cache"
+                <package name="${package_name}"
                          channel="pear.domain51.com"
                          type="required" />
             </dependencies>
@@ -123,17 +125,17 @@ The following targets are available:
     </target>
     
     <target name="file" depends="file.package">
-        <delete file="Domain51_Cache_File-${file.version}.tgz" />
-        <echo msg="Creating PEAR archive file for Domain51_Cache" />
-        <mkdir dir="./build/package/Domain51_Cache_File-${file.version}" />
-        <mkdir dir="./build/package/Domain51_Cache_File-${file.version}/Domain51" />
-        <copy todir="./build/package/Domain51_Cache_File-${file.version}/Domain51">
+        <delete file="${package_name}_File-${file.version}.tgz" />
+        <echo msg="Creating PEAR archive file for ${package_name}" />
+        <mkdir dir="./build/package/${package_name}_File-${file.version}" />
+        <mkdir dir="./build/package/${package_name}_File-${file.version}/Domain51" />
+        <copy todir="./build/package/${package_name}_File-${file.version}/Domain51">
             <fileset dir="./build/package/Domain51">
                 
             </fileset>
         </copy>
         <delete dir="./build/package/Domain51" />
-        <tar compression="gzip" destfile="Domain51_Cache_File-${file.version}.tgz" basedir="./build/package" />
+        <tar compression="gzip" destfile="${package_name}_File-${file.version}.tgz" basedir="./build/package" />
     </target>
 
 <!--
@@ -149,11 +151,11 @@ The following targets are available:
     </target>
     <target name="memcache.package" depends="memcache.export">
         <d51pearpkg2 dir="./build/package" baseinstalldir="/">
-            <name>Domain51_Cache_Memcache</name>
-            <summary>memcache adapter for Domain51_Cache</summary>
+            <name>${package_name}_Memcache</name>
+            <summary>memcache adapter for ${package_name}</summary>
             <channel>pear.domain51.com</channel>
             <description>
-                This package implements a simple memcache caching adapter for Domain51_Cache.
+                This package implements a simple memcache caching adapter for ${package_name}.
             </description>
             
             <lead user="tswicegood" name="Travis Swicegood" email="developer@domain51.com" />
@@ -166,7 +168,7 @@ The following targets are available:
             </notes>
             
             <dependencies>
-                <package name="Domain51_Cache"
+                <package name="${package_name}"
                          channel="pear.domain51.com"
                          type="required" />
                 <extension name="memcache" />
@@ -175,17 +177,17 @@ The following targets are available:
     </target>
     
     <target name="memcache" depends="memcache.package">
-        <delete file="Domain51_Cache_Memcache-${memcache.version}.tgz" />
-        <echo msg="Creating PEAR archive file for Domain51_Cache" />
-        <mkdir dir="./build/package/Domain51_Cache_Memcache-${memcache.version}" />
-        <mkdir dir="./build/package/Domain51_Cache_Memcache-${memcache.version}/Domain51" />
-        <copy todir="./build/package/Domain51_Cache_Memcache-${memcache.version}/Domain51">
+        <delete file="${package_name}_Memcache-${memcache.version}.tgz" />
+        <echo msg="Creating PEAR archive file for ${package_name}" />
+        <mkdir dir="./build/package/${package_name}_Memcache-${memcache.version}" />
+        <mkdir dir="./build/package/${package_name}_Memcache-${memcache.version}/Domain51" />
+        <copy todir="./build/package/${package_name}_Memcache-${memcache.version}/Domain51">
             <fileset dir="./build/package/Domain51">
                 
             </fileset>
         </copy>
         <delete dir="./build/package/Domain51" />
-        <tar compression="gzip" destfile="Domain51_Cache_Memcache-${memcache.version}.tgz" basedir="./build/package" />
+        <tar compression="gzip" destfile="${package_name}_Memcache-${memcache.version}.tgz" basedir="./build/package" />
     </target>
     
     <target name="all">
@@ -196,7 +198,7 @@ The following targets are available:
     
     <target name="docs" depends="export">
         <echo msg="Creating documentation" />
-        <phpdoc title="Domain51_Cache Docs" 
+        <phpdoc title="${package_name} Docs" 
             destdir="./apidocs"
             sourcecode="./build"
             output="HTML:frames:DOM/earthli"
