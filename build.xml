@@ -2,7 +2,9 @@
 <project name="Domain51_Cache" basedir="." default="help">
     <taskdef classname="phing.tasks.ext.d51PearPkg2Task" name="d51pearpkg2" />
     
-    <property name="version" value="0.1" />
+    <property name="base.version" value="0.1" />
+    <property name="file.version" value="0.1" />
+    <property name="memcache.version" value="0.1" />
     
     <target name="help">
         <echo>
@@ -47,7 +49,7 @@ The following targets are available:
             <lead user="tswicegood" name="Travis Swicegood" email="developer@domain51.com" />
             <license>LGPL</license>
             
-            <version release="${version}" api="0.0.1" />
+            <version release="${base.version}" api="0.0.1" />
             <stability release="alpha" api="alpha" />
             
             <changelog version="0.1" date="2007-07-06" license="LGPL">
@@ -69,17 +71,17 @@ The following targets are available:
     </target>
     
     <target name="base" depends="base.package">
-        <delete file="Domain51_Cache-${version}.tgz" />
+        <delete file="Domain51_Cache-${base.version}.tgz" />
         <echo msg="Creating PEAR archive file for Domain51_Cache" />
-        <mkdir dir="./build/package/Domain51_Cache-${version}" />
-        <mkdir dir="./build/package/Domain51_Cache-${version}/Domain51" />
-        <copy todir="./build/package/Domain51_Cache-${version}/Domain51">
+        <mkdir dir="./build/package/Domain51_Cache-${base.version}" />
+        <mkdir dir="./build/package/Domain51_Cache-${base.version}/Domain51" />
+        <copy todir="./build/package/Domain51_Cache-${base.version}/Domain51">
             <fileset dir="./build/package/Domain51">
                 
             </fileset>
         </copy>
         <delete dir="./build/package/Domain51" />
-        <tar compression="gzip" destfile="Domain51_Cache-${version}.tgz" basedir="./build/package" />
+        <tar compression="gzip" destfile="Domain51_Cache-${base.version}.tgz" basedir="./build/package" />
     </target>
     
 <!--
@@ -106,7 +108,7 @@ The following targets are available:
             <lead user="tswicegood" name="Travis Swicegood" email="developer@domain51.com" />
             <license>LGPL</license>
             
-            <version release="${version}" api="0.0.1" />
+            <version release="${file.version}" api="0.0.1" />
             <stability release="alpha" api="alpha" />
             <notes>
                 This is the initial release of this pacakge
@@ -121,17 +123,17 @@ The following targets are available:
     </target>
     
     <target name="file" depends="file.package">
-        <delete file="Domain51_Cache_File-${version}.tgz" />
+        <delete file="Domain51_Cache_File-${file.version}.tgz" />
         <echo msg="Creating PEAR archive file for Domain51_Cache" />
-        <mkdir dir="./build/package/Domain51_Cache_File-${version}" />
-        <mkdir dir="./build/package/Domain51_Cache_File-${version}/Domain51" />
-        <copy todir="./build/package/Domain51_Cache_File-${version}/Domain51">
+        <mkdir dir="./build/package/Domain51_Cache_File-${file.version}" />
+        <mkdir dir="./build/package/Domain51_Cache_File-${file.version}/Domain51" />
+        <copy todir="./build/package/Domain51_Cache_File-${file.version}/Domain51">
             <fileset dir="./build/package/Domain51">
                 
             </fileset>
         </copy>
         <delete dir="./build/package/Domain51" />
-        <tar compression="gzip" destfile="Domain51_Cache_File-${version}.tgz" basedir="./build/package" />
+        <tar compression="gzip" destfile="Domain51_Cache_File-${file.version}.tgz" basedir="./build/package" />
     </target>
 
 <!--
@@ -157,7 +159,7 @@ The following targets are available:
             <lead user="tswicegood" name="Travis Swicegood" email="developer@domain51.com" />
             <license>LGPL</license>
             
-            <version release="${version}" api="0.0.1" />
+            <version release="${memcache.version}" api="0.0.1" />
             <stability release="alpha" api="alpha" />
             <notes>
                 This is the initial release of this pacakge
@@ -173,17 +175,17 @@ The following targets are available:
     </target>
     
     <target name="memcache" depends="memcache.package">
-        <delete file="Domain51_Cache_Memcache-${version}.tgz" />
+        <delete file="Domain51_Cache_Memcache-${memcache.version}.tgz" />
         <echo msg="Creating PEAR archive file for Domain51_Cache" />
-        <mkdir dir="./build/package/Domain51_Cache_Memcache-${version}" />
-        <mkdir dir="./build/package/Domain51_Cache_Memcache-${version}/Domain51" />
-        <copy todir="./build/package/Domain51_Cache_Memcache-${version}/Domain51">
+        <mkdir dir="./build/package/Domain51_Cache_Memcache-${memcache.version}" />
+        <mkdir dir="./build/package/Domain51_Cache_Memcache-${memcache.version}/Domain51" />
+        <copy todir="./build/package/Domain51_Cache_Memcache-${memcache.version}/Domain51">
             <fileset dir="./build/package/Domain51">
                 
             </fileset>
         </copy>
         <delete dir="./build/package/Domain51" />
-        <tar compression="gzip" destfile="Domain51_Cache_Memcache-${version}.tgz" basedir="./build/package" />
+        <tar compression="gzip" destfile="Domain51_Cache_Memcache-${memcache.version}.tgz" basedir="./build/package" />
     </target>
     
     <target name="all">
