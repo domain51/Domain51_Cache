@@ -86,4 +86,6 @@ EchoForTesting :: __construct() invoked with array (
 EchoForTesting :: setting foo == bar
 EchoForTesting :: getting foo
 EchoForTesting :: save() invoked
+EchoForTesting :: __isset('foo') invoked
+EchoForTesting :: __unset('foo') invoked
 ===DONE===

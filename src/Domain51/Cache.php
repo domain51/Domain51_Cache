@@ -3,7 +3,7 @@
 require_once 'Domain51/Cache/Adapter.php';
 require_once 'Domain51/Cache/Exception.php';
 
-class Domain51_Cache
+class Domain51_Cache implements Domain51_Cache_Adapter
 {
     private $_adapter = null;
     
@@ -20,6 +20,16 @@ class Domain51_Cache
     public function __set($key, $value)
     {
         $this->_adapter->$key = $value;
+    }
+    
+    public function __isset($key)
+    {
+        return $this->_adapter->__isset($key);
+    }
+    
+    public function __unset($key)
+    {
+        $this->_adapter->__unset($key);
     }
     
     public function save()
