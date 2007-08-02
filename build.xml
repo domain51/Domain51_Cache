@@ -2,7 +2,7 @@
 <project name="Domain51_Cache" basedir="." default="help">
     <taskdef classname="phing.tasks.ext.d51PearPkg2Task" name="d51pearpkg2" />
     
-    <property name="base.version" value="0.1" />
+    <property name="base.version" value="0.2" />
     <property name="file.version" value="0.1" />
     <property name="memcache.version" value="0.1" />
     <property name="package_name" value="Domain51_Cache" />
@@ -53,6 +53,17 @@ The following targets are available:
             
             <version release="${base.version}" api="0.0.1" />
             <stability release="alpha" api="alpha" />
+            
+            <changelog version="0.2" date="2007-07-25" license="LGPL">
+                <!--        Don't exceed this width         -->
+                * This release makes Domain51_Cache implement
+                Domain51_Cache_Adapter which adds isset() and
+                unset() functionality.
+                
+                * Move interface constraint on __construct()
+                from Domain51_Cache_Adapter to
+                Domain51_Cache_Adapter_Abstract.
+            </changelog>
             
             <changelog version="0.1" date="2007-07-06" license="LGPL">
                 This is the initial release of this pacakge
